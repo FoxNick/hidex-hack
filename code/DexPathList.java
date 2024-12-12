@@ -16,6 +16,8 @@
 
 package dalvik.system;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -413,7 +415,7 @@ import java.util.zip.ZipFile;
                  * might end up with illegal URLs for relative
                  * names.
                  */
-                return new URL("jar:" + file.toURL() + "!/" + name);
+                return Urls.create("jar:" + file.toURL() + "!/" + name, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             } catch (MalformedURLException ex) {
                 throw new RuntimeException(ex);
             }
